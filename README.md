@@ -9,6 +9,20 @@ and Spark Streaming for stream processing.
 
 <http://spark.apache.org/>
 
+## Using Spark JDBC With *`INSERT ON DUPLICATE KEY UPDATE STATEMENT`*
+if you want to upsert mysql using spark jdbc
+```$xslt
+val connectionProperties = new Properties()
+connectionProperties.put("user", "username")
+connectionProperties.put("password", "password")
+connectionProperties.put("write_mode", "upsert")
+jdbcDF.write
+  .jdbc("jdbc:postgresql:dbserver", "schema.tablename", connectionProperties)
+```
+by default, spark write mysql using *`insert into statement`*.
+if you want to upsert mysql table, you could specify spark jdbc using *`INSERT ON DUPLICATE KEY UPDATE STATEMENT`*
+, you only need to put a key-value pair `("write_mode", "upsert")` to connectionProperties.
+
 
 ## Online Documentation
 
